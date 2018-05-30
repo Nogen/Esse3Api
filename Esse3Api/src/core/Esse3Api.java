@@ -4,6 +4,7 @@ package core;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,12 +28,13 @@ public class Esse3Api {
 	
 	private DomRequester requester;
 	private String domLibretto;
-	private List<String> subjects;
+	private HashMap<String, String> subSubjs;
 	
 	
 	public Esse3Api(String name, String password) {
 		this.requester = new DomRequester(name, password);
 		domLibretto = new String();
+		subSubjs = new HashMap<String, String>();
 		
 	}
 	
@@ -83,7 +85,7 @@ public class Esse3Api {
 		Elements elements = doc.select("td.detail_table_middle");
 		for (Element e : elements) {
 			if (!e.text().isEmpty()) {
-				System.out.println(e.select("a").attr("href"));
+				this.subSubjs.put(e.text(), e.select("a").attr("href").trim());
 				subjects.add(e.text());
 			}
 		}
@@ -91,16 +93,37 @@ public class Esse3Api {
 	}
 	
 	
+	public void getDetailSubj(String subj) throws ConnectionException, LoginException {
+		if (subSubjs.isEmpty()) {
+			this.getSubjects();
+		}
+		this.requester.setUrl(URLBASE + this.subSubjs.get(subj));
+		String html = this.requester.retriveDom();
+		Document doc = Jsoup.parse(html);
+		Elements elements = doc.select("td.detail_table");
+		for (Element e : elements) {
+			if (!e.text().isEmpty()) {
+				System.out.println(e);
+			}
+		}
+	}
+	
+	
 	public static void main(String argv[]) throws ConnectionException, LoginException {
+		/*
 		Scanner sc = new Scanner(System.in);
 		System.out.println("name: ");
 		String name = sc.nextLine();
 		System.out.println("password: ");
 		String psw = sc.nextLine();
-		Esse3Api prova = new Esse3Api(name, psw);
+		Esse3Api prova = new Esse3Api(name, psw);*/
+		Esse3Api prova = new Esse3Api("a.fallacara8", "w=94*94w");
 		prova.Login();
-		System.out.println(prova.getAvrg());
-		System.out.println(prova.getSubjects());
+		//System.out.println(prova.getAvrg());
+		List<String> tmp = prova.getSubjects();
+		System.out.println(tmp);
+		prova.getDetailSubj(tmp.get(0));
+		
 	}
 
 }

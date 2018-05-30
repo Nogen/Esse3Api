@@ -100,7 +100,9 @@ public class Esse3Api {
 		this.requester.setUrl(URLBASE + this.subSubjs.get(subj));
 		String html = this.requester.retriveDom();
 		Document doc = Jsoup.parse(html);
-		Elements elements = doc.select("td.detail_table");
+		Elements elements = doc.select("th.detail_table");
+		System.out.println(elements.size());
+		elements = doc.select("td.detail_table");
 		for (Element e : elements) {
 			if (!e.text().isEmpty()) {
 				System.out.println(e);
@@ -117,7 +119,7 @@ public class Esse3Api {
 		System.out.println("password: ");
 		String psw = sc.nextLine();
 		Esse3Api prova = new Esse3Api(name, psw);*/
-		Esse3Api prova = new Esse3Api("a.fallacara8", "w=94*94w");
+		Esse3Api prova = new Esse3Api("i.napoli2", "H*97!79*2a");
 		prova.Login();
 		//System.out.println(prova.getAvrg());
 		List<String> tmp = prova.getSubjects();

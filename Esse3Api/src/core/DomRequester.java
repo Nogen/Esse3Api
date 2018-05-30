@@ -16,9 +16,6 @@ public class DomRequester {
 	private static final String COOKIE = "Cookie";
 	private static final String SET_COOKIE = "Set-Cookie";
 	private static final String BASIC = "Basic ";
-	private static final String USER_AGENT = "User-Agent";
-	private static final String USER_AGENT_VAL = 
-			"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0";
 	
 	private String base64Auth;
 	private String cookie = null;
@@ -62,7 +59,6 @@ public class DomRequester {
 		try {
 			connection = (HttpURLConnection)this.url.openConnection();
 			connection.setRequestProperty(AUTH, BASIC + base64Auth);
-			connection.setRequestProperty(USER_AGENT, USER_AGENT_VAL);
 			String tmpcookie = connection.getHeaderField(SET_COOKIE);
 			this.cookie = (tmpcookie != null) ? tmpcookie : this.cookie; 
 		}catch (IOException e) {
@@ -83,7 +79,6 @@ public class DomRequester {
 			connection = (HttpURLConnection)this.url.openConnection();
 			connection.setRequestProperty(AUTH, BASIC + base64Auth);
 			connection.setRequestProperty(COOKIE, this.cookie);
-			connection.setRequestProperty(USER_AGENT, USER_AGENT_VAL);
 			if (connection.getResponseCode() == 401) {
 				throw new LoginException("Wrong password or account");
 			}

@@ -7,10 +7,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import exceptionhandling.ConnectionException;
+import exceptionhandling.LoginException;
 
 public class DomRequester {
 	private static final String AUTH = "Authorization";
@@ -28,8 +27,7 @@ public class DomRequester {
 	
 	
 	public DomRequester(String name, String password) {
-		String auth = name + ":" + password;
-		this.base64Auth = Base64.getEncoder().encodeToString(auth.getBytes());
+		this.setAuthentication(name, password);
 	}
 	
 	public DomRequester(String name, String password, String url) {
@@ -37,6 +35,14 @@ public class DomRequester {
 		this.setUrl(url);
 	}
 	
+	public void setAuthentication(String name, String password) {
+		String auth = name + ":" + password;
+		this.base64Auth = Base64.getEncoder().encodeToString(auth.getBytes());
+	}
+	
+	public void resetAuthentication() {
+		this.base64Auth = new String();
+	}
 	
 	public void setUrl(String url) {
 		try {
@@ -60,7 +66,7 @@ public class DomRequester {
 	}
 	
 	
-	public String retriveDom() throws ConnectionException {
+	public String retriveDom() throws ConnectionException, LoginException {
 		this.retCookie();
 		String dom = new String();
 		String line;
@@ -68,6 +74,9 @@ public class DomRequester {
 			connection = (HttpURLConnection)this.url.openConnection();
 			connection.setRequestProperty(AUTH, BASIC + base64Auth);
 			connection.setRequestProperty(COOKIE, this.cookie);
+			if (connection.getResponseCode() == 401) {
+				throw new LoginException("Wrong password or account");
+			}
 			BufferedReader bufferedReader = new BufferedReader(
 					new InputStreamReader(connection.getInputStream()));
 			
@@ -83,9 +92,8 @@ public class DomRequester {
 	}
 	
 	
-	public static void main(String argv[]) {
-	
-		System.out.println();
+	public void doSingleReq() throws ConnectionException{
+			this.retCookie();
 	}
 	
 

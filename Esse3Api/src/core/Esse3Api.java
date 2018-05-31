@@ -93,23 +93,6 @@ public class Esse3Api {
 	}
 	
 	
-	public void getDetailSubj(String subj) throws ConnectionException, LoginException {
-		if (subSubjs.isEmpty()) {
-			this.getSubjects();
-		}
-		this.requester.setUrl(URLBASE + this.subSubjs.get(subj));
-		String html = this.requester.retriveDom();
-		Document doc = Jsoup.parse(html);
-		Elements elements = doc.select("th.detail_table");
-		System.out.println(elements.size());
-		elements = doc.select("td.detail_table");
-		for (Element e : elements) {
-			if (!e.text().isEmpty()) {
-				System.out.println(e);
-			}
-		}
-	}
-	
 	public HashMap<String, Float> getDetailSubj(String subj) throws ConnectionException, LoginException {
 		HashMap<String, Float> blockSubjHours = new HashMap<String, Float>();
 		int div;

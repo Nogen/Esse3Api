@@ -31,14 +31,13 @@ public class Esse3Api {
 	private HashMap<String, String> subSubjs;
 	
 	
-	public Esse3Api(String name, String password) {
-		this.requester = new DomRequester(name, password);
+	public Esse3Api() {
 		domLibretto = new String();
 		subSubjs = new HashMap<String, String>();
-		
 	}
 	
-	public void Login() throws ConnectionException, LoginException{
+	public void Login(String name, String password) throws ConnectionException, LoginException{
+		this.requester = new DomRequester(name, password);
 		this.requester.setUrl(URLLOGIN);
 		this.requester.retriveDom();
 	}
@@ -139,15 +138,9 @@ public class Esse3Api {
 	
 	
 	public static void main(String argv[]) throws ConnectionException, LoginException {
-		/*
-		Scanner sc = new Scanner(System.in);
-		System.out.println("name: ");
-		String name = sc.nextLine();
-		System.out.println("password: ");
-		String psw = sc.nextLine();
-		Esse3Api prova = new Esse3Api(name, psw);*/
-		Esse3Api prova = new Esse3Api("i.napoli2", "H*97!79*2a");
-		prova.Login();
+		
+		Esse3Api prova = new Esse3Api();
+		prova.Login("i.napoli2", "H*97!79*2a");
 		//System.out.println(prova.getAvrg());
 		List<String> tmp = prova.getSubjects();
 		System.out.println(tmp);

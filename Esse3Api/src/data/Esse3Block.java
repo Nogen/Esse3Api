@@ -26,7 +26,12 @@ public class Esse3Block {
 		this.totalHours = totalHours;
 	}
 	
-		
-	
+	@Override
+	public String toString() {
+		return "Group name: " +  this.blockName +
+				"\n" +
+				"Group total hours: " + this.totalHours +
+				"\n";
+	}
 
 }

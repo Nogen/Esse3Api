@@ -37,7 +37,14 @@ public class Esse3Subj {
 	public void setBlockName(String blockName) {
 		this.blockName = blockName;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "Subject name: " +  this.subjName +
+				"\n" +
+				"Lesson hours: " + this.subjHours +
+				"\n" + 
+				"Subject group: " + this.blockName +
+				"\n";
+	}
 
 }

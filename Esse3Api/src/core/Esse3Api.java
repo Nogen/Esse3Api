@@ -174,10 +174,12 @@ public class Esse3Api {
 		Esse3Api prova = new Esse3Api();
 		prova.Login("i.napoli2", "H*97!79*2a");
 		//System.out.println(prova.getAvrg());
-		List<String> tmp = prova.getSubjects();
-		System.out.println(tmp);
-		System.out.println(prova.getDetailSubj(tmp.get(2)));
-		System.out.println(prova.getTotalBlockHours(tmp.get(2)));
+		for (Esse3Block b : prova.getBlocks()) {
+			System.out.println(b.toString());
+		}
+		for (Esse3Subj s : prova.getSubjs()) {
+			System.out.println(s.toString());
+		}
 		
 	}
 

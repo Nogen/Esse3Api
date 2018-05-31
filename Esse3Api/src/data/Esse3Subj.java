@@ -2,13 +2,13 @@ package data;
 
 public class Esse3Subj {
 	private String subjName;
-	private String subjHours;
+	private Float subjHours;
 	private String blockName;
 	
 	public Esse3Subj() {
 	}
 	
-	public Esse3Subj(String subjName, String subjHours, String blockName) {
+	public Esse3Subj(String subjName, Float subjHours, String blockName) {
 		this.subjName = subjName;
 		this.subjHours = subjHours;
 		this.blockName = blockName;
@@ -22,11 +22,11 @@ public class Esse3Subj {
 		this.subjName = subjName;
 	}
 	
-	public String getSubjHours() {
+	public Float getSubjHours() {
 		return subjHours;
 	}
 	
-	public void setSubjHours(String subjHours) {
+	public void setSubjHours(Float subjHours) {
 		this.subjHours = subjHours;
 	}
 	

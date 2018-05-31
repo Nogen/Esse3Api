@@ -2,13 +2,13 @@ package data;
 
 public class Esse3Block {
 	private String blockName;
-	private String totalHours;
+	private Float totalHours;
 	
 	
 	public Esse3Block() {
 	}
 	
-	public Esse3Block(String blockName, String totalHours) {
+	public Esse3Block(String blockName, Float totalHours) {
 		this.setBlockName(blockName);
 		this.setTotalHours(totalHours);
 	}
@@ -19,10 +19,10 @@ public class Esse3Block {
 	public void setBlockName(String blockName) {
 		this.blockName = blockName;
 	}
-	public String getTotalHours() {
+	public Float getTotalHours() {
 		return totalHours;
 	}
-	public void setTotalHours(String totalHours) {
+	public void setTotalHours(Float totalHours) {
 		this.totalHours = totalHours;
 	}
 	

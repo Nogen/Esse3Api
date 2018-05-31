@@ -13,6 +13,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import data.Esse3Block;
+import data.Esse3Subj;
 import exceptionhandling.ConnectionException;
 import exceptionhandling.LoginException;
 
@@ -135,6 +137,36 @@ public class Esse3Api {
 		}
 		return totalHours;
 	}
+	
+	
+	public List<Esse3Block> getBlocks() throws ConnectionException, LoginException {
+		List<Esse3Block> blocks = new ArrayList<Esse3Block>();
+		
+		List<String> blockname = this.getSubjects();
+		
+		for (String sub : blockname) {
+			Float hours = this.getTotalBlockHours(sub);
+			blocks.add(new Esse3Block(sub, hours));
+		}
+		return blocks;
+	}
+	
+	public List<Esse3Subj> getSubjs() throws ConnectionException, LoginException {
+		List<Esse3Subj> subjects = new ArrayList<Esse3Subj>();
+		HashMap<String, Float> tmpsubj;
+		Esse3Subj singleSubj;
+		
+		List<String> blockname = this.getSubjects();
+		
+		for (String sub : blockname) {
+			tmpsubj = this.getDetailSubj(sub);
+			for (String subjName : tmpsubj.keySet()) {
+				subjects.add(new Esse3Subj(subjName, tmpsubj.get(subjName), sub));
+			}
+		}
+		return subjects;
+	}	
+	
 	
 	
 	public static void main(String argv[]) throws ConnectionException, LoginException {

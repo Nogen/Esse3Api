@@ -110,6 +110,50 @@ public class Esse3Api {
 		}
 	}
 	
+	public HashMap<String, Float> getDetailSubj(String subj) throws ConnectionException, LoginException {
+		HashMap<String, Float> blockSubjHours = new HashMap<String, Float>();
+		int div;
+		int counter = 0;
+		String key = new String();
+		Float value = new Float(0);
+		Document doc;
+		Elements elements;
+		
+		if (subSubjs.isEmpty()) {
+			this.getSubjects();
+		}
+		this.requester.setUrl(URLBASE + this.subSubjs.get(subj));
+		String html = this.requester.retriveDom();
+		doc = Jsoup.parse(html);
+		elements = doc.select("th.detail_table");
+		div = elements.size();
+		counter = 0;
+		elements = doc.select("td.detail_table");
+		
+		for (Element e : elements) {
+			counter = counter % div;
+			if (counter == 0) {
+				key = e.text();
+			} else if (counter == div - 1) {
+				value = Float.valueOf(e.
+						text()
+						.trim());
+				blockSubjHours.put(key, value);
+			}
+			counter++;
+		}
+		return blockSubjHours;
+	}
+	
+	public Float getTotalBlockHours(String subj) throws ConnectionException, LoginException{
+		HashMap<String, Float> res = this.getDetailSubj(subj);
+		Float totalHours = new Float(0);
+		for (Float hrs : res.values()) {
+			totalHours += hrs;
+		}
+		return totalHours;
+	}
+	
 	
 	public static void main(String argv[]) throws ConnectionException, LoginException {
 		/*
@@ -124,7 +168,8 @@ public class Esse3Api {
 		//System.out.println(prova.getAvrg());
 		List<String> tmp = prova.getSubjects();
 		System.out.println(tmp);
-		prova.getDetailSubj(tmp.get(0));
+		System.out.println(prova.getDetailSubj(tmp.get(2)));
+		System.out.println(prova.getTotalBlockHours(tmp.get(2)));
 		
 	}
 

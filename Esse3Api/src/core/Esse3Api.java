@@ -172,7 +172,7 @@ public class Esse3Api {
 	public static void main(String argv[]) throws ConnectionException, LoginException {
 		
 		Esse3Api prova = new Esse3Api();
-		prova.Login("i.napoli2", "H*97!79*2a");
+		prova.Login("a.fallacara8", "prova");
 		//System.out.println(prova.getAvrg());
 		for (Esse3Block b : prova.getBlocks()) {
 			System.out.println(b.toString());
